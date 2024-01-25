@@ -36,13 +36,10 @@ export default function Home() {
     // 2. A configuration object with adjustable fields
     recognizer.listen(result => {
       const scores = result.scores; // probability of prediction for each class
-      console.log(result);
       // render the probability scores per class
       for (let i = 0; i < classLabels.length; i++) {
         const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
         labelRef.current.childNodes[i].innerHTML = classPrediction;
-
-        console.log(labelRef.current.childNodes[i]);
       }
     }, {
       includeSpectrogram: true, // in case listen should return result.spectrogram
