@@ -27,7 +27,6 @@ export default function Home() {
 
   const startHandler = async () => {
     if (!recognizerRef.current) {
-      console.log('createModel');
       recognizerRef.current = await createModel();
     }
     
