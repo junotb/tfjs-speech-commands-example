@@ -12,11 +12,13 @@ export default function Home() {
   const [words, setWords] = useState(null);
 
   const createModel = async () => {
+    console.log(`${process.env['HOST']}/model/model.json`);
+
     const recognizer = speechCommands.create(
       "BROWSER_FFT", // fourier transform type, not useful to change
       undefined, // speech commands vocabulary feature, not useful for your models
-      '/model/model.json',
-      '/model/metadata.json');
+      `${process.env.HOST}/model/model.json`,
+      `${process.env.HOST}/model/metadata.json`);
 
     // check that model and metadata are loaded via HTTPS requests.
     await recognizer.ensureModelLoaded();
@@ -60,7 +62,7 @@ export default function Home() {
   };
 
   return (
-    <div className='flex justify-center items-center w-full h-screen'>
+    <div className='flex flex-col justify-center items-center w-full h-screen'>
       <div>
         <button
           type='button'
@@ -75,7 +77,9 @@ export default function Home() {
           className='border border-black dark:border-white m-1 p-3 rounded-md bg-white dark:bg-black text-xl text-black dark:text-white'
         >Stop</button>
       </div>
-      <div ref={labelRef}></div>
+      <div
+        ref={labelRef}
+        className='m-1 p-3'></div>
     </div>
   );
 }
