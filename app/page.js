@@ -12,13 +12,11 @@ export default function Home() {
   const [words, setWords] = useState(null);
 
   const createModel = async () => {
-    console.log(`${process.env['HOST']}/model/model.json`);
-
     const recognizer = speechCommands.create(
       "BROWSER_FFT", // fourier transform type, not useful to change
       undefined, // speech commands vocabulary feature, not useful for your models
-      `${process.env.HOST}/model/model.json`,
-      `${process.env.HOST}/model/metadata.json`);
+      `${process.env.NEXT_PUBLIC_HOST}/model/model.json`,
+      `${process.env.NEXT_PUBLIC_HOST}/model/metadata.json`);
 
     // check that model and metadata are loaded via HTTPS requests.
     await recognizer.ensureModelLoaded();
