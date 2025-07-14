@@ -19,9 +19,9 @@ export default function SpeechRecognizer() {
         <div className="text-2xl">{result ? result : "..."}</div>
         {probabilities && (
           <ul className="mt-2">
-            {probabilities.map((p: any) => (
-              <li key={p.label}>
-                {p.label}: {p.prob}
+            {probabilities.map(({ label, prob }) => (
+              <li key={label}>
+                {label}: {prob}
               </li>
             ))}
           </ul>

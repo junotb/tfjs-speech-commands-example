@@ -1,10 +1,16 @@
+import { SpeechCommandRecognizer } from "@tensorflow-models/speech-commands";
 import { useState, useEffect } from "react";
 
+type Probability = {
+  label: string;
+  prob: string;
+};
+
 export function useSpeechRecognizer() {
-  const [recognizer, setRecognizer] = useState<any>();
+  const [recognizer, setRecognizer] = useState<SpeechCommandRecognizer | null>(null);
   const [listening, setListening] = useState(false);
   const [result, setResult] = useState<string | null>(null);
-  const [probabilities, setProbabilities] = useState<any>(null);
+  const [probabilities, setProbabilities] = useState<Probability[] | null>(null);
 
   useEffect(() => {
     async function loadRecognizer() {
@@ -22,7 +28,7 @@ export function useSpeechRecognizer() {
     setResult(null);
     setListening(true);
     recognizer.listen(
-      (result: any) => {
+      async (result) => {
         const scores = result.scores as Float32Array;
         const labels = recognizer.wordLabels();
         const topIdx = scores.indexOf(Math.max(...scores));
