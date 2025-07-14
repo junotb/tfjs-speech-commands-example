@@ -19,7 +19,18 @@ export function useSpeechRecognizer() {
       await recognizer.ensureModelLoaded();
       setRecognizer(recognizer);
     }
+
     loadRecognizer();
+
+    return () => {
+      if (recognizer) {
+        recognizer.stopListening();
+        setRecognizer(null);
+        setListening(false);
+        setResult(null);
+        setProbabilities(null);
+      }
+    };
   }, []);
 
   // 음성 인식 시작
